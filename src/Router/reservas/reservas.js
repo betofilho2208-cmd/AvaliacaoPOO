@@ -86,4 +86,15 @@ Reservrouter.post("/CadastroR", (req,res)=>{
     })
 })
 
+Reservrouter.put("/AtualizarR", (req,res)=>{
+    const {hospede_id, quarto_id, checkin, checkout, id_reserva} = req.body
+    conn.query(`update reservas set hospede_id = ${hospede_id}, quarto_id = ${quarto_id}, data_checkin = '${checkin}', data_checkout = '${checkout}' where id_reserva = ${id_reserva}`, (err,result)=>{
+        if(err){
+            res.json("Erro ao atualizar")
+        }else{
+            res.json("Atualização realizada com sucesso")
+        }
+    })
+})
+
 export default Reservrouter;
