@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 10/11/2026 às 14:42
+-- Tempo de geração: 11/11/2026 às 16:44
 -- Versão do servidor: 8.4.7
 -- Versão do PHP: 8.3.28
 
@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS `hospedes` (
   `nome` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `cpf` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `telefone` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id_hospede`)
+  PRIMARY KEY (`id_hospede`),
+  UNIQUE KEY `cpf` (`cpf`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -76,12 +77,23 @@ INSERT INTO `quartos` (`id_quarto`, `numero`, `tipo`, `valor_diaria`, `status`) 
 DROP TABLE IF EXISTS `reservas`;
 CREATE TABLE IF NOT EXISTS `reservas` (
   `id_reserva` int NOT NULL AUTO_INCREMENT,
-  `id_hospede` int NOT NULL,
-  `id_quarto` int NOT NULL,
-  `data_checkin` date NOT NULL,
-  `data_checkout` date NOT NULL,
-  PRIMARY KEY (`id_reserva`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `data_checkin` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `data_checkout` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hospede_id` int DEFAULT NULL,
+  `quarto_id` int DEFAULT NULL,
+  PRIMARY KEY (`id_reserva`),
+  KEY `hospede_id` (`hospede_id`),
+  KEY `quarto_id` (`quarto_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Despejando dados para a tabela `reservas`
+--
+
+INSERT INTO `reservas` (`id_reserva`, `data_checkin`, `data_checkout`, `hospede_id`, `quarto_id`) VALUES
+(1, '11/11/2026', '12/11/2026', 1, 1),
+(6, '26/12/2026', '30/12/2026', 1, 1),
+(7, '11/12/2026', '14/12/2026', 3, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

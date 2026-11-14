@@ -97,4 +97,25 @@ Reservrouter.put("/AtualizarR", (req,res)=>{
     })
 })
 
+Reservrouter.delete("/DeleteR", (req,res)=>{
+    const {id_reserva} = req.body
+    conn.query(`delete from reservas where id_reserva = ${id_reserva}`, (err,result)=>{
+        if(err){
+            res.json("Erro ao excluir")
+        }else{
+            res.json("Exclusão realizada com sucesso")
+        }
+    })
+})
+
+Reservrouter.get("/InformacoesR", (req,res)=>{
+    conn.query(`select * from reservas `, (err, result)=>{
+        if(err){
+            res.json("Erro ao buscar informações")
+        }else{
+            res.json(result)
+        }
+    })
+})
+
 export default Reservrouter;
