@@ -15,5 +15,5 @@ app.use(Quartosrouter);
 app.use(Reservrouter)
 
 app.listen(6969, () => {
-    console.log("Servidor rodando na porta 6969");
+    console.log("Servidor rodando na porta ");
 });
