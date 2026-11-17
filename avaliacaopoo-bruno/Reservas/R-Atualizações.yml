@@ -1,0 +1,24 @@
+info:
+  name: R-Atualizações
+  type: http
+
+http:
+  method: PUT
+  url: http://localhost:6969/AtualizarR
+  body:
+    type: json
+    data: |-
+      {
+        "hospede_id":3,
+        "quarto_id":1,
+        "checkin":"11/12/2026",
+        "checkout":"14/12/2026", 
+        "id_reserva": 7
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

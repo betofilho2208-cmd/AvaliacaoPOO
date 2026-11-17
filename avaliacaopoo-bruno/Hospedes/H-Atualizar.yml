@@ -1,0 +1,24 @@
+info:
+  name: H-Atualizar
+  type: http
+  seq: 1
+
+http:
+  method: PUT
+  url: http://localhost:6969/AtualizarH
+  body:
+    type: json
+    data: |-
+      {
+        "id": 1,
+        "nome": "Egberto",
+        "cpf": "61927370370",
+        "telefone":"88994878829"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

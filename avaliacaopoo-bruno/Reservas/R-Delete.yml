@@ -1,0 +1,20 @@
+info:
+  name: R-Delete
+  type: http
+
+http:
+  method: DELETE
+  url: http://localhost:6969/DeleteR
+  body:
+    type: json
+    data: |-
+      {
+        "id_reserva": 5
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

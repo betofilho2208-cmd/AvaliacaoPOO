@@ -1,0 +1,23 @@
+info:
+  name: H-Cadastro
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:6969/CadastroH
+  body:
+    type: json
+    data: |-
+      {
+        "nome":"Egberto",
+        "cpf":"12345678900",
+        "telefone":"88994878829"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

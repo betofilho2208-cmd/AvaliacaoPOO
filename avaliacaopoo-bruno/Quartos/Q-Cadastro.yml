@@ -1,0 +1,23 @@
+info:
+  name: Q-Cadastro
+  type: http
+
+http:
+  method: POST
+  url: http://localhost:6969/CadastroQ
+  body:
+    type: json
+    data: |-
+      {
+        "numero": "1",
+        "tipo": "VIP",
+        "valor_diaria": 480.5 ,
+        "status": "Disponivel"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

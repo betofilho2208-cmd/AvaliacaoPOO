@@ -1,0 +1,21 @@
+info:
+  name: Q-Verificacao
+  type: http
+
+http:
+  method: POST
+  url: http://localhost:6969/VerificacaoQ
+  body:
+    type: json
+    data: |-
+      {
+        "numero": "1",
+        "tipo": "VIP"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
