@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 11/11/2026 às 16:44
+-- Tempo de geração: 17/11/2026 às 14:46
 -- Versão do servidor: 8.4.7
 -- Versão do PHP: 8.3.28
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `hospedes` (
   `telefone` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id_hospede`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `hospedes`
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `quartos` (
   `valor_diaria` int NOT NULL,
   `status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id_quarto`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `quartos`
@@ -82,9 +82,9 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `hospede_id` int DEFAULT NULL,
   `quarto_id` int DEFAULT NULL,
   PRIMARY KEY (`id_reserva`),
-  KEY `hospede_id` (`hospede_id`),
-  KEY `quarto_id` (`quarto_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `fk_reserva_hospede` (`hospede_id`),
+  KEY `fk_reserva_quarto` (`quarto_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `reservas`
@@ -94,6 +94,17 @@ INSERT INTO `reservas` (`id_reserva`, `data_checkin`, `data_checkout`, `hospede_
 (1, '11/11/2026', '12/11/2026', 1, 1),
 (6, '26/12/2026', '30/12/2026', 1, 1),
 (7, '11/12/2026', '14/12/2026', 3, 1);
+
+--
+-- Restrições para tabelas despejadas
+--
+
+--
+-- Restrições para tabelas `reservas`
+--
+ALTER TABLE `reservas`
+  ADD CONSTRAINT `fk_reserva_hospede` FOREIGN KEY (`hospede_id`) REFERENCES `hospedes` (`id_hospede`),
+  ADD CONSTRAINT `fk_reserva_quarto` FOREIGN KEY (`quarto_id`) REFERENCES `quartos` (`id_quarto`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
