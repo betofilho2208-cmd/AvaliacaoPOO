@@ -71,4 +71,5 @@ Quartosrouter.post("/InfEspecQ", (req, res) => {
         }
     })
 })
+
 export default Quartosrouter;
