@@ -27,7 +27,7 @@ Hospedesrouter.post("/CadastroH", (req, res) => {
                     return res.status(500).json("Erro ao inserir hospede");
                 }
 
-                res.status(201).json("Hospede cadastrado com sucesso");
+                res.status(201).json({"message": "Hospede cadastrado com sucesso"});
             }
         );
     });
@@ -35,21 +35,25 @@ Hospedesrouter.post("/CadastroH", (req, res) => {
 
 
 Hospedesrouter.post("/VerificacaoH", (req, res) => {
-    const { cpf } = req.body
-   conn.query(
-    "SELECT id_hospede, nome, cpf, telefone FROM hospedes",
-    (err, result) => {
-        if (err) {
-            res.json("Erro na verificação do usuário")
-        } else {
+    const { cpf } = req.body;
+
+    conn.query(
+        "SELECT id_hospede, nome, cpf, telefone FROM hospedes WHERE cpf = ?",
+        [cpf],
+        (err, result) => {
+
+            if (err) {
+                return res.status(500).json("Erro na verificação do usuário");
+            }
+
             if (result.length > 0) {
-                res.json("Usuário está cadastrado")
+                res.json(result[0]);
             } else {
-                res.json("Usuário não cadastrado")
+                res.status(404).json("Usuário não cadastrado");
             }
         }
-    })
-})
+    );
+});
 
 Hospedesrouter.put("/AtualizarH", (req, res) => {
     const { nome, cpf, telefone, id } = req.body
