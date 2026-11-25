@@ -34,7 +34,7 @@ Reservrouter.post("/CadastroR", (req, res) => {
         }
 
         conn.query(`select * from reservas 
-        where id_quarto = ${quarto_id}
+        where quarto_id = ${quarto_id}
         and data_checkin < '${dataCheckout}'
         and data_checkout > '${dataCheckin}'`, (err, reservas) => {
 
