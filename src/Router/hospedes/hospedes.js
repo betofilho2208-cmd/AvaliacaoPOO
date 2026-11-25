@@ -1,22 +1,44 @@
 import { Router } from "express";
 import conn from "../../database/conf.db.js";
+import bcrypt from "bcrypt";
 
 const Hospedesrouter = Router();
 
+
 Hospedesrouter.post("/CadastroH", (req, res) => {
-    const { nome, cpf, telefone } = req.body
-    conn.query(`insert into hospedes (nome, cpf, telefone) value ('${nome}', '${cpf}', '${telefone}')`, (err, result) => {
+    const { nome, cpf, telefone, senha } = req.body;
+
+    if (!nome || !cpf || !telefone || !senha) {
+        return res.status(400).json("Preencha todos os campos");
+    }
+
+    bcrypt.hash(senha, 10, (err, hash) => {
+
         if (err) {
-            res.json("Erro ao inserir hospede")
-        } else {
-            res.json("Usuario cadastrado com sucesso")
+            return res.status(500).json("Erro ao proteger a senha");
         }
-    })
-})
+
+        conn.query(
+            "INSERT INTO hospedes (nome, cpf, telefone, senha) VALUES (?, ?, ?, ?)",
+            [nome, cpf, telefone, hash],
+            (err, result) => {
+
+                if (err) {
+                    return res.status(500).json("Erro ao inserir hospede");
+                }
+
+                res.status(201).json("Hospede cadastrado com sucesso");
+            }
+        );
+    });
+});
+
 
 Hospedesrouter.post("/VerificacaoH", (req, res) => {
     const { cpf } = req.body
-    conn.query(`select * from hospedes where cpf = '${cpf}'`, (err, result) => {
+   conn.query(
+    "SELECT id_hospede, nome, cpf, telefone FROM hospedes",
+    (err, result) => {
         if (err) {
             res.json("Erro na verificação do usuário")
         } else {
